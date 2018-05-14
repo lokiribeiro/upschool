@@ -1,0 +1,226 @@
+<div flex-md layout-align="center center" class="slide smooth">
+    <div layout="column" layout-fill layout-padding>
+      <div layout="row" layout-align ="start none" layout-wrap ng-hide="startNine">
+        <img alt="UPSCHOOL" style="width:175px; height:40px" class="img-responsive text-center" src="../../assets/img/logo.png" />
+      </div>
+      <div layout="row" layout-align ="center none" layout-wrap ng-if="startNine">
+            <img alt="UPSCHOOL" style="width:220px; height:50px" class="img-responsive text-center" src="../../assets/img/logo.png" />
+          </div>
+    </div>
+      <!-- <h1 hide-xs style="font-weight: normal;" layout="row" layout-fill layout-align ="center center">All of Squala. One account.</h1> -->
+    <div flex layout="row" layout-align="center center" layout-wrap >
+        <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="getstarted.startOne">
+            <h1 class="md-display-1" style="font-weight: 250 !important;">Let's get started</h1>
+            <p>You'll have access to enrollment, grading, online storage, and other school administration tools. <strong>Start your 14 day trial, with no payment information required or software to download.</strong></p>
+            <p>We'll guide you through creating a Upschool account for your school.</p>
+            <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.stepTwo()">Next</md-button>
+            <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+        </div>
+        <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="getstarted.startTwo">
+                <md-progress-linear md-mode="determinate" value="20"></md-progress-linear>
+                <form name="getStartedTwo">
+                <h1 class="md-display-1" style="font-weight: 250 !important;">Tell us about your School</h1>
+                <md-input-container class="md-float md-block" layout-fill >
+                        <label>
+                          School name
+                        </label>
+                        <input type="text" name="schoolName" ng-model="getstarted.signup.schoolName" aria-label="schoolname" required/>
+                        <div ng-messages="getStartedTwo.schoolName.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                </md-input-container>
+                <p>Number of enrolled students: <span class="radioValue">{{ getstarted.signup.students }}</span> </p>
+                
+                <md-radio-group ng-model="getstarted.signup.students">
+                
+                    <md-radio-button value="50" class="md-primary">2-50</md-radio-button>
+                    <md-radio-button value="250" class="md-primary"> 51-250 </md-radio-button>
+                    <md-radio-button value="500" class="md-primary">251-500</md-radio-button>
+                    <md-radio-button value="1000" class="md-primary">501-1000</md-radio-button>
+                    <md-radio-button value="plenty" class="md-primary">1000+</md-radio-button>
+                
+                </md-radio-group>
+                <div layout="row">
+                    <md-button class="md-raised md-primary" ng-click="getstarted.stepOne()">Back</md-button>
+                    <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.stepThree()">Next</md-button>
+                </div>
+                </form>
+                <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+            </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="getstarted.startThree">
+                    <md-progress-linear md-mode="determinate" value="40"></md-progress-linear>
+                    <form name="getStartedThree">
+                    <h1 class="md-display-1" style="font-weight: 250 !important;">What's your school location and number?</h1>
+                    <md-input-container layout-fill>
+                            <label>Country</label>
+                            <md-select name="country" ng-model="getstarted.signup.country" required>
+                              <md-option ng-repeat="country in getstarted.countryLists" ng-value="country.Name">
+                                {{country.Name}}
+                              </md-option>
+                            </md-select>
+                    </md-input-container>
+                    <span layout="row" layout-fill>
+                        <md-input-container class="md-float md-block" flex="20">
+                            <label>
+                                Dial Code
+                            </label>
+                            <input type="text" ng-model="getstarted.signup.dialCode" aria-label="schoolname"/>
+                        </md-input-container>
+                        <span flex></span>
+                        <md-input-container class="md-float md-block" flex="75">
+                            <label>
+                                School Phone Number
+                            </label>
+                            <input type="text" ng-model="getstarted.signup.schoolNumber" aria-label="schoolname"/>
+                        </md-input-container>
+                    </span>
+                    <div layout="row">
+                        <md-button class="md-raised md-primary" ng-click="getstarted.stepTwo()">Back</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.stepFour()">Next</md-button>
+                    </div>
+                    </form>
+                    <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+            </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="getstarted.startFour">
+                    <md-progress-linear md-mode="determinate" value="60"></md-progress-linear>
+                    <form name="getStartedFour">
+                    <h1 class="md-display-1" style="font-weight: 250 !important;">What's your email address?</h1>
+                    <p>Provide an address you check always, so that we can contact you.</p>
+                    <md-input-container class="md-float md-block" layout-fill >
+                            <label>
+                              email address
+                            </label>
+                            <input type="text" name="email" ng-model="getstarted.signup.email" aria-label="email" required minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
+                            <div ng-messages="getStartedFour.email.$error" role="alert">
+                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                  Your email must be between 10 and 100 characters long and look like an e-mail address.
+                                </div>
+                              </div>
+                    </md-input-container>
+                    <div layout="row">
+                        <md-button class="md-raised md-primary" ng-click="getstarted.stepThree()">Back</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.stepFive()">Next</md-button>
+                    </div>
+                    </form>
+                    <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+            </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="getstarted.startFive">
+                    <md-progress-linear md-mode="determinate" value="70"></md-progress-linear>
+                    <form name="getStartedFive">
+                    <h1 class="md-display-1" style="font-weight: 250 !important;">What's your name?</h1>
+                    <p>You'll be the Upschool admin since you're creating the account. Don't worry, you can assign this role to someone else later.
+                            <md-icon md-svg-icon="../../assets/img/black_help18.svg" class="name">
+                                <md-tooltip md-direction="bottom">
+                                        An admin is the person who manages your school's Upschool account.
+                                        
+                                        Admins can add and remove users, reset passwords, pay the bills, and more.
+                                      </md-tooltip>
+                            </md-icon> 
+                            
+                    </p>
+                    <md-input-container class="md-float md-block" layout-fill >
+                            <label>
+                              First name
+                            </label>
+                            <input type="text" ng-model="getstarted.signup.firstname" aria-label="firstname" required/>
+                    </md-input-container>
+                    <md-input-container class="md-float md-block" layout-fill >
+                            <label>
+                              Last name
+                            </label>
+                            <input type="text" ng-model="getstarted.signup.lastname" aria-label="lastname" required/>
+                    </md-input-container>
+                    <div layout="row">
+                        <md-button class="md-raised md-primary" ng-click="getstarted.stepFour()">Back</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.stepSix()">Next</md-button>
+                    </div>
+                    </form>
+                    <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+            </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="getstarted.startSix">
+                    <md-progress-linear md-mode="determinate" value="80"></md-progress-linear>
+                    <form name="getStartedSix">
+                    <h1 class="md-display-1" style="font-weight: 250 !important;">How you'll sign in</h1>
+                    <p>You'll use your email to sign into your Upschool account.                      
+                    </p>
+                    <md-input-container class="md-float md-block" layout-fill >
+                            <label>
+                              Password
+                            </label>
+                            <input type="password" ng-model="getstarted.signup.password" aria-label="password" name="password" required minlength="8"/>
+                            <div ng-messages="getStartedSix.password.$error" multiple md-auto-hide="false">
+                                <div ng-message="required">
+                                  This is required for your security.
+                                </div>
+                      
+                                <div ng-message="minlegth">
+                                  Password is too short, try more than 8 characters.
+                                </div>
+                              </div>
+                    </md-input-container>
+                    <md-input-container class="md-float md-block" layout-fill >
+                            <label>
+                              Confirm Password
+                            </label>
+                            <input type="password" ng-model="getstarted.signup.password2" aria-label="password2" name="password2" compare-to="getstarted.signup.password" required/>
+                            <div ng-messages="compare-to" ng-if="getstarted.matchPasswords">Passwords must match.</div>
+                    </md-input-container>
+                    <div layout="row">
+                        <md-button class="md-raised md-primary" ng-click="getstarted.stepFive()">Back</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.stepSeven()">Next</md-button>
+                    </div>
+                    </form>
+                    <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+            </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="getstarted.startSeven">
+                    <md-progress-linear md-mode="determinate" value="85"></md-progress-linear>
+                    <h1 class="md-display-1" style="font-weight: 250 !important;">Join the Upschool Education network</h1>
+                    <p>We'll send you occasional emails with helpful tips, special offers and announcements.                     
+                    </p>
+                    <div layout="row">
+                        <md-button class="md-raised md-primary" ng-click="getstarted.stepSix()">Back</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.stepEightOK()">OK</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.stepEightNO()">No Thanks</md-button>
+                    </div>
+                    <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+            </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="getstarted.startEight">
+                    <md-progress-linear md-mode="determinate" value="90"></md-progress-linear>
+                    <h1 class="md-display-1" style="font-weight: 250 !important;">You're almost done creating your Upschool account</h1>
+                    <p>We know you're probably not a robot, but we just have to ask: Are you a robot?                   
+                    </p>
+                    <!--<div
+                    vc-recaptcha
+                    key="'YOUR PUBLIC KEY GOES HERE'"
+                    ></div>-->
+                    <p>By clicking "Agree and create account" you agree to the <a href="#"><strong>Upschool Agreement.</strong></a>                
+                        </p>
+                    
+                    <div layout="row">
+                        <md-button class="md-raised md-primary" ng-click="getstarted.stepSeven()">Back</md-button>
+                        <md-button type="submit" class="md-raised md-primary" ng-click="getstarted.registerNow()">AGREE AND CREATE ACCOUNT</md-button>
+                    </div>
+                    <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+            </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center center" layout-padding ng-show="inProgress">
+                <!--<md-progress-circular md-mode="indeterminate"></md-progress-circular>-->
+                <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+            </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="emailExists">
+                <h1 class="md-display-1" style="font-weight: 250 !important;">Your Upschool account can not be created</h1>
+                <p>The email you provided is registered already. Please check your details again.                 
+                </p>
+                <md-button class="md-raised md-primary" ng-click="getstarted.stepFour()">Go back</md-button>
+                <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+        </div>
+            <div layout="column" flex-gt-sm="33" layout-align="center start" layout-padding ng-show="startNine">
+                    <h1 class="md-display-1" style="font-weight: 250 !important;">Your Upschool account has been created</h1>
+                    <p>You can now login using your email                   
+                    </p>
+                    <a href="/loginsetup"><md-button class="md-raised md-primary" ng-click="">Go to login</md-button></a>
+                    <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+            </div>
+    </div>
+      
+  </div>
+  

@@ -6,16 +6,18 @@ import utilsPagination from 'angular-utils-pagination';
 import { Meteor } from 'meteor/meteor';
 
 import { Counts } from 'meteor/tmeasday:publish-counts';
+import { Userapps } from '../../../api/userapps';
 
-import { Jobs } from '../../../api/jobs';
-import { Parties } from '../../../api/parties';
 import template from './dashboard.html';
  
 class Dashboard {
-  constructor($scope, $reactive, $state) {
+  constructor($scope, $reactive, $state, $rootScope, $stateParams) {
     //'ngInject';
  
     $reactive(this).attach($scope);
+
+    this.state = $stateParams.stateHolder;
+    console.info('state.this', this.state);
 
     this.job = {};
     this.dateFrom = '';
@@ -30,41 +32,19 @@ class Dashboard {
     };
     this.searchText = '';
 
-    this.subscribe('parties', () => [{
-      limit: parseInt(this.perPage),
-      skip: parseInt((this.getReactively('page') - 1) * this.perPage),
-      sort: this.getReactively('sort')
-    }, this.getReactively('searchText')
-    ]);
-
-    this.subscribe('jobs', () => [{
-      limit: parseInt(this.perPage),
-      skip: parseInt((this.getReactively('page') - 1) * this.perPage),
-      sort: this.getReactively('sort')
-    }, this.getReactively('searchText'), 
-    this.getReactively('dateFrom2'),
-    this.getReactively('dateTo2')
-    ]);
-
     this.subscribe('users');
+
+    this.subscribe('userapps');
  
     this.helpers({
-      parties() {
-        var parties =  Parties.find({}, {
-          sort : this.getReactively('sort')
-        });
-        console.info('parties', parties);
-        return parties;
-      },
-      jobs() {
-        var jobs =  Jobs.find({}, {
-          sort : this.getReactively('sort')
-        });
-        console.info('parties', jobs);
-        return jobs;
-      },
-      jobsCount() {
-        return Counts.get('numberOfJobs');
+      userapps() {
+        var userID = Meteor.userId();
+        var sort  = this.sort;
+        var selector = {userID: userID};
+        var modifier = {sort: {appName: sort}};
+        var userapps = Userapps.find(selector,modifier);
+        console.info('userapps', userapps);
+        return userapps;
       },
       isLoggedIn() {
         return !!Meteor.userId();
@@ -84,21 +64,10 @@ class Dashboard {
       },2000);
     }
 
-    this.gotoDashboard = function() {
-      $state.go('dashboard', {}, {reload: 'dashboard'});
+    this.redirect = function(appName) {
+      $state.go(appName, { userID : Meteor.userId(), stateHolder : appName });
     }
-    this.gotoInventory = function() {
-      $state.go('inventory', {}, {reload: 'inventory'});
-    }
-    this.gotoLogbook = function() {
-      $state.go('logbook', {}, {reload: 'logbook'});
-    }
-    this.gotoEmployees = function() {
-      $state.go('employees', {}, {reload: 'employees'});
-    }
-    this.gotoSettings = function() {
-      $state.go('settings', {}, {reload: 'settings'});
-    }
+    
   }
 
   isOwner(party) {
@@ -148,14 +117,14 @@ export default angular.module(name, [
 ]).component(name, {
   template,
   controllerAs: name,
-  controller: ['$scope', '$reactive', '$state', Dashboard]
+  controller: ['$scope', '$reactive', '$state', '$rootScope', '$stateParams', Dashboard]
 })
 .config(['$stateProvider', 
 function($stateProvider) {
   //'ngInject';
   $stateProvider
-    .state('dashboard', {
-      url: '/dashboard',
+    .state('Dashboard', {
+      url: '/ab/:stateHolder',
       template: '<dashboard></dashboard>',
       resolve: {
         currentUser($q, $state) {
@@ -165,7 +134,10 @@ function($stateProvider) {
               return $q.resolve();
             };
         }
-    }
+      },
+      onEnter: ['$rootScope', '$stateParams', '$state', function ($rootScope, $stateParams, $state) {
+            $rootScope.stateHolder = $stateParams.stateHolder;
+      }]
     });
   } 
 ]);

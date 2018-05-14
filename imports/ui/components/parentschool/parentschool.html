@@ -1,0 +1,24 @@
+<!-- <h2 style="font-weight:normal; color:#555; margin-bottom: 0 !important; margin-top: 0 !important;" ng-if="$root.userLoggedInBranch == branch._id" >Parent School</h2> -->
+<div ng-repeat="branch in parentschool.branches" layout-padding ng-if="parentschool.currentUser.branchID == branch._id" layout="column" layout-align="start start" layout-fill>
+    <md-card layout-fill >
+      <md-card-header>
+        <md-card-avatar>
+          <md-tooltip md-direction="bottom">
+            {{branch.schoolAdmin}}
+          </md-tooltip>
+          <img class="md-user-avatar" src="{{branch.adminPic}}"/>
+        </md-card-avatar>
+        <md-card-header-text>
+          <span class="md-title">{{branch.schoolName}}</span>
+          <span class="md-subhead">{{branch.city ? branch.city + ', ' : ''}} {{branch.country}}</span>
+        </md-card-header-text>
+        <md-button class="md-icon-button" aria-label="Apps" ng-click="openSchool(branch)">
+          <md-tooltip md-direction="bottom">
+            view school
+          </md-tooltip>
+          <md-icon md-svg-icon="../../assets/img/black_viewschool24.svg"></md-icon>
+        </md-button>
+      </md-card-header>
+    </md-card>
+  </div>
+  

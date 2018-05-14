@@ -20,4 +20,17 @@ if (Meteor.isServer) {
 
    return Profiles.find(selector, options);
  });
+
+ Meteor.publish('profiles2', function(options, searchString) {
+  const selector = {};
+
+  if (typeof searchString === 'string' && searchString.length) {
+   selector.userID = {
+     $regex: `.*${searchString}.*`,
+     $options : 'i'
+   };
+ }
+
+  return Profiles.find(selector, options);
+});
 }

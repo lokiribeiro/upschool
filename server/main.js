@@ -1,9 +1,11 @@
 import '../imports/startup/fixtures';
-import '../imports/api/parties';
 import '../imports/api/users';
-import '../imports/api/images';
-import '../imports/api/jobs';
-import '../imports/api/inventories';
 import '../imports/api/profiles';
 import '../imports/api/docs';
 import '../imports/api/photos';
+import '../imports/api/registers';
+import '../imports/api/userapps';
+import '../imports/api/roles';
+import '../imports/api/apps';
+import '../imports/api/branches';
+import '../imports/api/navigations';

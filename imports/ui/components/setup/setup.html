@@ -1,0 +1,64 @@
+<div flex-md layout-align="center center" class="slide smooth">
+    <div layout="column" layout-fill layout-padding>
+      <div layout="row" layout-align ="start none" layout-wrap ng-hide="startNine">
+        <img alt="UPSCHOOL" style="width:175px; height:40px" class="img-responsive text-center" src="../../assets/img/logo.png" />
+      </div>
+      <div layout="row" layout-align ="center none" layout-wrap ng-if="startNine">
+            <img alt="UPSCHOOL" style="width:220px; height:50px" class="img-responsive text-center" src="../../assets/img/logo.png" />
+          </div>
+    </div>
+      <!-- <h1 hide-xs style="font-weight: normal;" layout="row" layout-fill layout-align ="center center">All of Squala. One account.</h1> -->
+    <div flex layout="row" layout-align="center center" layout-wrap >
+        <div layout="column" flex-gt-sm="50" layout-align="center center" layout-padding ng-show="setup.startOne">
+            <h1 class="md-display-1" style="font-weight: 250 !important;">Setup Upschool</h1>
+            <p>Enrollment, grading, online storage and more school administration tools.</p>
+            <!--<md-card>
+                <md-card-header>
+                  <md-card-avatar>
+                        <img ng-src="../../assets/img/primary_check24.svg" alt="photo"/>
+                    
+                  </md-card-avatar>
+                  <md-card-header-text>
+                    <span class="md-title">Set up a Squala account</span>
+                    <span class="md-subhead">You'll be able to manage Squala for your entire school.</span>
+                  </md-card-header-text>
+                </md-card-header>
+              </md-card>-->
+
+              <md-card>
+                    <md-card-header>
+                      <md-card-avatar>
+                            <img ng-src="../../assets/img/primary_appadd24.svg" alt="photo"/>
+                      </md-card-avatar>
+                      <md-card-header-text>
+                        <span class="md-title">Add apps to your Upschool account</span>
+                        <span class="md-subhead">Headmaster admin panel is installed for you already.</span>
+                      </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content>
+                        <md-list-item ng-click="null" ng-repeat="app in setup.apps" ng-if="app.name == setup.defaultApp">
+                            <span flex>
+                            <p ><img ng-src="{{app.loc}}" style="margin: auto 3px auto 0;" >  <b flex="10"> {{ app.name }}: </b>
+                             {{app.desc}}
+                           </p>
+                          </span>
+                          <md-switch class="md-accent" ng-model="setup.defaultVal"  disabled></md-switch>
+                        </md-list-item>
+                        <md-list-item ng-click="null" ng-repeat="app in setup.apps track by $index" ng-hide="app.name == setup.defaultApp">
+                          <span flex>
+                          <p ><img ng-src="{{app.loc}}" style="margin: auto 3px auto 0;" >  <b flex="10"> {{ app.name }}: </b>
+                              {{app.desc}}
+                          </p>
+                          </span>
+                          <md-switch class="md-accent" ng-model="installed[$index]"  ng-change="setup.switchApp(app, installed[$index])"></md-switch>
+                        </md-list-item>
+                    </md-card-content>
+                  </md-card>
+              
+            <md-button type="submit" class="md-raised md-primary" ng-click="setup.finalStep()">Go to Admin Console</md-button>
+            <!--<span class="bJMHdf "><img src="//www.gstatic.com/apps/signup/h/i/bg/bg_02.svg"></span>-->
+        </div>
+    </div>
+      
+  </div>
+  
